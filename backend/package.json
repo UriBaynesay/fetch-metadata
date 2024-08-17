@@ -1,0 +1,19 @@
+{
+  "name": "fetch-metadata",
+  "version": "1.0.0",
+  "description": "fetch-metadata backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "start:dev": "nodemon server.js"
+  },
+  "author": "Uri Baynesay",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.10"
+  }
+}
