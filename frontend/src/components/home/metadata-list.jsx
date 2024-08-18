@@ -4,7 +4,7 @@ import { MetaDataPreview } from "./metadata-preview"
 export const MetaDataList = ({ onClearMetaData, metaData }) => {
   return (
     <Fragment>
-      <ul className="metadata-list-container">
+      <ul className="metadata-list-container ">
         {metaData.map((data) => {
           return (
             <MetaDataPreview key={data.title} data={data}></MetaDataPreview>
