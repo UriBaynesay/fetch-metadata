@@ -4,8 +4,8 @@ const path = require("path")
 
 const app = express()
 const http = require("http").createServer(app)
-
 app.use(express.json())
+
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.resolve(__dirname, "public")))
 } else {
@@ -23,7 +23,7 @@ if (process.env.NODE_ENV === "production") {
 
 // routes
 const fetchMetaDataRouter = require("./api/fetch-metadata/fetch-metadata.routes")
-app.use("/api/fetch-metadata", fetchMetaDataRouter)
+app.use("/api/fetch-metadata/", fetchMetaDataRouter)
 
 app.get("/**", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"))
