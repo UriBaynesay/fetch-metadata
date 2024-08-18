@@ -22,8 +22,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // routes
-const fetchMetaData = require("./api/fetch-metadata/fetch-metadata.service")
-app.post("/api/fetch-metadata", fetchMetaData)
+const fetchMetaDataRouter = require("./api/fetch-metadata/fetch-metadata.routes")
+app.use("/api/fetch-metadata", fetchMetaDataRouter)
 
 app.get("/**", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"))
