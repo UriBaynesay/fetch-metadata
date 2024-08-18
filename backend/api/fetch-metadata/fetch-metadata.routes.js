@@ -5,7 +5,7 @@ const { fetchMetaData } = require("./fetch-metadata.controller")
 // configure rate limiter middleware (5 request per second)
 const limiter = rateLimit({
   windowMs: 1000, // 1 second
-  limit: 5, 
+  limit: 5,
   standardHeaders: true,
   legacyHeaders: false,
 })
