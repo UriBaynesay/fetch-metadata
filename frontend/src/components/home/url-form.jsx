@@ -16,7 +16,7 @@ export const UrlForm = ({ onSubmit }) => {
   }
 
   return (
-    <section>
+    <section className="url-form-container">
       <form
         onSubmit={(ev) => {
           ev.preventDefault()
