@@ -27,6 +27,7 @@ export const UrlForm = ({ onSubmit }) => {
         {urls.map((url, index) => {
           return (
             <input
+              required={index<3?true:false}
               className="url-input border border-gray-100 rounded mt-8 p-2 "
               type="text"
               name={index}
