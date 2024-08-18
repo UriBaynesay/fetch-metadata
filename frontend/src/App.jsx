@@ -20,12 +20,23 @@ function App() {
   }
 
   return (
-    <div className="App">
-      {metaData.length ? (
-        <MetaDataList onClearMetaData={onClearMetaData} metaData={metaData}></MetaDataList>
-      ) : (
-        <UrlForm onSubmit={onSubmit}></UrlForm>
-      )}
+    <div className="App px-8 h-dvh flex flex-col">
+      <header>
+        <h1>Fetch Metadata - Tolstoy</h1>
+      </header>
+      <main className="grow">
+        {metaData.length ? (
+          <MetaDataList
+            onClearMetaData={onClearMetaData}
+            metaData={metaData}
+          ></MetaDataList>
+        ) : (
+          <UrlForm onSubmit={onSubmit}></UrlForm>
+        )}
+      </main>
+      <footer>
+        <small>Uri Baynesay</small>
+      </footer>
     </div>
   )
 }
