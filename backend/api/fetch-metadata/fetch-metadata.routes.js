@@ -1,6 +1,6 @@
 const express = require("express")
 const { rateLimit } = require("express-rate-limit")
-const { fetchMetaData } = require("./fetch-metadata.service")
+const { fetchMetaData } = require("./fetch-metadata.controller")
 
 // configure rate limiter middleware (5 request per second)
 const limiter = rateLimit({
