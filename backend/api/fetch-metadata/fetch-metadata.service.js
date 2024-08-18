@@ -6,19 +6,22 @@ function fetchMetaData(req, res) {
   const fetchedUrls = getUrlFetchPromises(urls)
   Promise.all(fetchedUrls)
     .then((values) => {
-      const result = []
-      values.forEach((value, index) =>
-        value.text().then((htmlText) => {
+      const htmlTexts = []
+      values.forEach((value) => {
+        htmlTexts.push(value.text())
+      })
+      Promise.all(htmlTexts).then((htmlTexts) => {
+        result=htmlTexts.map(htmlText=>{
           const dom = new JSDOM(htmlText)
           const title = dom.window.document.title
           const description = dom.window.document
             .getElementsByTagName("meta")
             .namedItem("description")?.content
           const imageUrl = dom.window.document.images[0]?.src
-          result.push({ title, description, imageUrl })
-          if (index === values.length - 1) res.send(result)
+          return { title, description, imageUrl }
         })
-      )
+        res.send(result)
+      })
     })
     .catch((error) => res.status(404).send(error))
 }
