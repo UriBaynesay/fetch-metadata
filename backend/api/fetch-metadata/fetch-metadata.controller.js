@@ -17,11 +17,15 @@ const { extractMetaFromHTMLText } = require("./fetch-metadata.service")
 function fetchMetaData(req, res) {
   const urls = req.body
   const textResponses = urls.map((url) =>
-    fetch(url).then((response) => response.text())
+    fetch(url)
+      .then((response) => response.text())
+      .then((data) => Promise.resolve({ html: data, url }))
   )
   Promise.all(textResponses)
-    .then((htmlTexts) => {
-      result = htmlTexts.map((htmlText) => extractMetaFromHTMLText(htmlText))
+    .then((htmlAndURLs) => {
+      result = htmlAndURLs.map((htmlAndURL) =>
+        extractMetaFromHTMLText(htmlAndURL)
+      )
       res.send(result)
     })
     .catch((error) => res.status(400).send(error))
