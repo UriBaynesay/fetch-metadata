@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import "./App.css"
 import { UrlForm } from "./components/home/url-form"
 import { fetchMetaDataService } from "./services/fetch-metadata.service"
@@ -18,6 +18,7 @@ import { MetaDataList } from "./components/home/metadata-list"
  */
 function App() {
   const [metaData, setMetaData] = useState([])
+  const [isFetching, setIsFetching] = useState(false)
 
   /**
    * Handles the submission of a list of URLs for metadata fetching.
@@ -39,10 +40,13 @@ function App() {
         alert(`${urls[i]} - Not a valid URL, make sure to add https://`)
     }
     try {
+      setIsFetching(true)
       const newMetaData = await fetchMetaDataService.fetchMetaData(urls)
       setMetaData(newMetaData)
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsFetching(false)
     }
   }
 
@@ -69,7 +73,10 @@ function App() {
             metaData={metaData}
           ></MetaDataList>
         ) : (
-          <UrlForm onSubmit={onSubmit}></UrlForm>
+          <Fragment>
+            <UrlForm onSubmit={onSubmit}></UrlForm>
+            {isFetching && <small>Fetching...</small>}
+          </Fragment>
         )}
       </main>
       <footer>
