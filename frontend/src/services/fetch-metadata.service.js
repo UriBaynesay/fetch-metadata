@@ -23,8 +23,9 @@ const BASEURL =
  * @throws {Error} Throws an error if the request fails or if there is an issue with fetching metadata.
  */
 async function fetchMetaData(urls) {
+  const cleanedURLS = urls.filter(url=>url)
   try {
-    const { data } = await axios.post(BASEURL, urls)
+    const { data } = await axios.post(BASEURL, cleanedURLS)
     return data
   } catch (error) {
     throw error
