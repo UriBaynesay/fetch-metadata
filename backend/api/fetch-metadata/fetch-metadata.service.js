@@ -16,13 +16,19 @@ const { JSDOM } = jsdom
  * - `imageUrl` (string|undefined): The `src` attribute of the first `<img>` tag, or `undefined` if no images are found.
  *
  */
-function extractMetaFromHTMLText(htmlText) {
-  const dom = new JSDOM(htmlText)
+function extractMetaFromHTMLText(htmlAndURL) {
+  const dom = new JSDOM(htmlAndURL.html)
   const title = dom.window.document.title
   const description = dom.window.document
     .getElementsByTagName("meta")
     .namedItem("description")?.content
-  const imageUrl = dom.window.document.images[0]?.src
+  let imageUrl = dom.window.document.images[0]?.src
+    ? dom.window.document.images[0]?.src
+    : "https://media.istockphoto.com/id/1055079680/vector/black-linear-photo-camera-like-no-image-available.jpg?s=612x612&w=0&k=20&c=P1DebpeMIAtXj_ZbVsKVvg-duuL0v9DlrOZUvPG6UJk="
+
+  if (imageUrl?.startsWith("/")) {
+    imageUrl = htmlAndURL.url + "" + imageUrl
+  }
   return { title, description, imageUrl }
 }
 

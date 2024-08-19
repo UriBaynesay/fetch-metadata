@@ -20,7 +20,7 @@ export const MetaDataPreview = ({ data }) => {
           <h1 className="font-bold">{data.title}</h1>
           <p>{data.description}</p>
         </div>
-        <img className="max-h-24" src={data.imageUrl} alt="" />
+        <img className="max-w-24 object-contain" src={data.imageUrl} alt="" />
       </article>
     </li>
   )
