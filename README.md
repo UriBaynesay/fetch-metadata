@@ -56,7 +56,7 @@ To run the `fetch-metadata` backend using Docker, follow these steps:
 
    Start a container from the Docker image.
    ```bash
-   docker run -p 3000:3030 fetch-data
+   docker run -p 3000:3030 fetch-metadata
    ```
 
    The application will be available at `http://localhost:3000`.
