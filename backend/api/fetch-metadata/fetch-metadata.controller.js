@@ -16,18 +16,16 @@ const { extractMetaFromHTMLText } = require("./fetch-metadata.service")
  */
 function fetchMetaData(req, res) {
   const urls = req.body
-  const textResponses = urls.map((url) =>
-    fetch(url)
-      .then((response) => response.text())
-      .then((data) => Promise.resolve({ html: data, url }))
-  )
-  Promise.all(textResponses)
-    .then((htmlAndURLs) => {
-      result = htmlAndURLs.map((htmlAndURL) =>
-        extractMetaFromHTMLText(htmlAndURL)
-      )
-      res.send(result)
-    })
+  const metaDatas = urls.map(async (url) => {
+    try {
+      const fetchedUrl = await fetch(url)
+      const data = await fetchedUrl.text()
+      return extractMetaFromHTMLText({ html: data, url })
+    } catch (error) {
+      return res.status(400).send(error)
+    }
+  })
+  Promise.all(metaDatas).then(result => res.send(result))
     .catch((error) => res.status(400).send(error))
 }
 
